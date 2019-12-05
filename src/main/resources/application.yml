@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: spring-cloud-eureka
+
+# server.port 服务发现端口,默认为8761
+server:
+  port: 8761
+# eureka.instance.hostname 主机IP,访问实例时需要通过主机IP+端口号访问,主机名+端口号访问不到
+# fetch-registry 检索服务选项,当设置为True(默认值)时,会进行服务检索,注册中心不负责检索服务。
+# register-with-eureka 服务注册中心也会将自己作为客户端来尝试注册自己,为true（默认）时自动生效
+# eureka.client.serviceUrl.defaultZone 是一个默认的注册中心地址。配置该选项后,可以在服务中心进行注册。
+# 为什么不建议使用default-zone 替代defaultZone
+#   service-url 的Value 支持Map 键值对；参考博客 https://blog.csdn.net/u011531425/article/details/81713441
+#   zone 属性会被Eureka Client 解析当成客户端默认当成zone 处理；
+#   default-zone 被解析时会被认为客户端没有有效的配置service-url；
+#   defaultZone 会正常处理为默认的service-url 为http://192.168.15.1:8761/eureka/
+eureka:
+  instance:
+    hostname: 127.0.0.1
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  service-url:
+    defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
